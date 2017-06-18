@@ -1,0 +1,31 @@
+<template>
+    <style>
+
+    </style>
+    <h1></h1>
+    <img src=""/>
+</template>
+
+    <script>
+
+    class MockupElement extends HTMLElement {
+        constructor (){
+            super ();
+            console.log('new MockupElement');
+            this.shadow = this.attachShadow({mode: 'open'});
+
+        }
+
+        connectedCallback(){
+            console.log('MockupElement connectedCallback');
+            let $template =  document.currentScript.ownerDocument.querySelector('template').content.cloneNode(true);
+            this.shadow.appendChild($template);
+
+            this.shadow.querySelector('img').setAttribute('src', this.attributes.image.value);
+            this.shadow.querySelector('h1').innerHTML = this.attributes.napis.value;
+            // this.shadow.innerHTML = document.querySelector('template').innerHTML;
+        }
+    }
+
+    window.customElements.define('mockup-element', MockupElement)
+    </script>
